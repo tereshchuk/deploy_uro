@@ -1,0 +1,35 @@
+// Automatic FlutterFlow imports
+import '/backend/schema/structs/index.dart';
+import '/backend/schema/enums/enums.dart';
+import '/backend/supabase/supabase.dart';
+import '/flutter_flow/flutter_flow_theme.dart';
+import '/flutter_flow/flutter_flow_util.dart';
+import 'index.dart'; // Imports other custom actions
+import '/flutter_flow/custom_functions.dart'; // Imports custom functions
+import 'package:flutter/material.dart';
+// Begin custom action code
+// DO NOT REMOVE OR MODIFY THE CODE ABOVE!
+
+// Set your action name, define your arguments and return parameter,
+// and then add the boilerplate code using the green button on the right!
+import 'package:flutter_ble_peripheral/flutter_ble_peripheral.dart';
+
+Future<void> toggleAdvertise(String serviceUuid, String localName) async {
+  if (await FlutterBlePeripheral().isAdvertising) {
+    await FlutterBlePeripheral().stop();
+  } else {
+    await FlutterBlePeripheral().start(
+        advertiseData:
+            AdvertiseData(serviceUuid: serviceUuid, localName: localName),
+        advertiseSettings: AdvertiseSettings(
+          advertiseMode: AdvertiseMode.advertiseModeBalanced,
+          txPowerLevel: AdvertiseTxPower.advertiseTxPowerMedium,
+          timeout: 3000,
+        ),
+        advertiseSetParameters: AdvertiseSetParameters(
+            legacyMode: true,
+            connectable: true,
+            scannable: true,
+            includeTxPowerLevel: true));
+  }
+}
